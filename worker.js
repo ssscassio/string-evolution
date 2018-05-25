@@ -89,6 +89,8 @@ function create_children(best_candidates) {
 }
 
 candidates = create_generation(INITIAL_GENERATION_SIZE)
+mean_fitness_array = []
+best_fitness_array = []
 
 while (running != 0) {
 
@@ -104,6 +106,9 @@ while (running != 0) {
     .map((c) => c[1])
     .reduce((a, b) => a + b, 0) / new_g.length
 
+  best_fitness_array.push(best_fitness);
+  mean_fitness_array.push(mean_fitness);
+
   best_candidates = new_g
     .map((c) => c[0])
     .slice(0, ALLOWED_SURVIVORS);
@@ -115,6 +120,8 @@ while (running != 0) {
 
   postMessage(
     {
+      best_fitness_array,
+      mean_fitness_array,
       best_fitness,
       mean_fitness,
       best_candidate: new_g[0][0]
